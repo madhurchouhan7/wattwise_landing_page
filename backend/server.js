@@ -13,6 +13,10 @@ const waitlistRoutes = require('./routes/waitlist');
 const adminRoutes = require('./routes/adminRoutes');
 
 const app = express();
+
+// Trust reverse proxy (needed for Render, Heroku, etc. so express-rate-limit works properly with X-Forwarded-For)
+app.set('trust proxy', 1);
+
 const PORT = process.env.PORT || 5001;
 
 // ─── ADMIN AUTH & VIEWS SETUP ────────────────────────────────────────────────
