@@ -3,24 +3,36 @@
 import { useState, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { usePostHog } from 'posthog-js/react';
+import { useGoogleReCaptcha } from 'react-google-recaptcha-v3';
 
 export default function WaitlistForm({ variant = 'hero' }) {
     const [email, setEmail] = useState('');
     const [status, setStatus] = useState('idle');
     const [message, setMessage] = useState('');
     const posthog = usePostHog();
+    const { executeRecaptcha } = useGoogleReCaptcha();
 
     const handleSubmit = useCallback(
         async (e) => {
             e.preventDefault();
             if (!email || status === 'loading') return;
+
+            if (!executeRecaptcha) {
+                setStatus('error');
+                setMessage('reCAPTCHA is not loaded yet. Please wait a moment.');
+                return;
+            }
+
             setStatus('loading');
             try {
+                // Generate genuine distinct reCAPTCHA token just for this form submission event
+                const recaptchaToken = await executeRecaptcha('waitlist_join');
+
                 const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:5001';
                 const res = await fetch(`${backendUrl}/api/waitlist`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ email, recaptchaToken: 'dev-token' }),
+                    body: JSON.stringify({ email, recaptchaToken }),
                 });
                 const data = await res.json();
                 if (res.status === 201) {
@@ -44,7 +56,7 @@ export default function WaitlistForm({ variant = 'hero' }) {
                 setMessage('Network error. Please check your connection.');
             }
         },
-        [email, status]
+        [email, status, executeRecaptcha, variant, posthog]
     );
 
     const isError = status === 'error' || status === 'duplicate';

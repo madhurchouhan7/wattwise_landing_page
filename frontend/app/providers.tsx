@@ -3,6 +3,7 @@
 import posthog from 'posthog-js';
 import { PostHogProvider as PHProvider } from 'posthog-js/react';
 import { useEffect } from 'react';
+import { GoogleReCaptchaProvider } from 'react-google-recaptcha-v3';
 
 // Initialize PostHog
 if (typeof window !== 'undefined') {
@@ -19,5 +20,17 @@ export function PostHogProvider({ children }: { children: React.ReactNode }) {
         posthog.capture('$pageview');
     }, []);
 
-    return <PHProvider client={posthog}>{children}</PHProvider>;
+    return (
+        <GoogleReCaptchaProvider
+            reCaptchaKey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY || 'dummy_key'}
+            scriptProps={{
+                async: false,
+                defer: false,
+                appendTo: "head",
+                nonce: undefined,
+            }}
+        >
+            <PHProvider client={posthog}>{children}</PHProvider>
+        </GoogleReCaptchaProvider>
+    );
 }
