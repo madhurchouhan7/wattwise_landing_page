@@ -1,23 +1,11 @@
-const nodemailer = require('nodemailer');
-const dns = require('dns');
+const { Resend } = require('resend');
 
-// Force Node to prefer IPv4 over IPv6 during DNS resolution to prevent ENETUNREACH errors
-dns.setDefaultResultOrder('ipv4first');
-
-const transporter = nodemailer.createTransport({
-    host: process.env.SMTP_HOST || 'smtp.gmail.com',
-    port: process.env.SMTP_PORT || 587,
-    secure: process.env.SMTP_SECURE === 'true',
-    auth: {
-        user: process.env.SMTP_USER,
-        pass: process.env.SMTP_PASS,
-    },
-});
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 const sendWaitlistConfirmationEmail = async (userEmail) => {
     try {
-        const mailOptions = {
-            from: `"Wattwise Notifications" <${process.env.SMTP_USER}>`,
+        const { data, error } = await resend.emails.send({
+            from: process.env.RESEND_FROM_EMAIL || 'Wattwise Notifications <onboarding@resend.dev>',
             to: userEmail,
             subject: 'You have secured your spot on the Wattwise Waitlist',
             html: `
@@ -67,13 +55,17 @@ const sendWaitlistConfirmationEmail = async (userEmail) => {
             </body>
             </html>
             `,
-        };
+        });
 
-        const info = await transporter.sendMail(mailOptions);
-        console.log('✅ Authentic waitlist email sent to:', userEmail, 'Message ID:', info.messageId);
-        return info;
+        if (error) {
+            console.error('❌ Resend API Error:', error);
+            return null;
+        }
+
+        console.log('✅ Authentic waitlist email sent via Resend to:', userEmail, 'Message ID:', data.id);
+        return data;
     } catch (error) {
-        console.error('❌ Error sending waitlist email to:', userEmail, error);
+        console.error('❌ Error sending waitlist email via Resend to:', userEmail, error);
         return null;
     }
 };
