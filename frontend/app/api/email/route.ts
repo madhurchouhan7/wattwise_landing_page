@@ -1,12 +1,27 @@
-const { Resend } = require('resend');
+import { NextResponse } from 'next/server';
+import nodemailer from 'nodemailer';
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+const transporter = nodemailer.createTransport({
+    host: process.env.SMTP_HOST || 'smtp.gmail.com',
+    port: Number(process.env.SMTP_PORT) || 587,
+    secure: process.env.SMTP_SECURE === 'true', // true for 465, false for other ports
+    auth: {
+        user: process.env.SMTP_USER,
+        pass: process.env.SMTP_PASS,
+    },
+});
 
-const sendWaitlistConfirmationEmail = async (userEmail) => {
+export async function POST(req: Request) {
     try {
-        const { data, error } = await resend.emails.send({
-            from: process.env.RESEND_FROM_EMAIL || 'Wattwise Notifications <onboarding@resend.dev>',
-            to: userEmail,
+        const { email } = await req.json();
+
+        if (!email) {
+            return NextResponse.json({ error: 'Email is required' }, { status: 400 });
+        }
+
+        const mailOptions = {
+            from: `"Wattwise Notifications" <${process.env.SMTP_USER}>`,
+            to: email,
             subject: 'You have secured your spot on the Wattwise Waitlist',
             html: `
             <!DOCTYPE html>
@@ -49,27 +64,20 @@ const sendWaitlistConfirmationEmail = async (userEmail) => {
                     </div>
                     <div class="footer">
                         <p>&copy; ${new Date().getFullYear()} Wattwise. All rights reserved.</p>
-                        <p>This email was sent to ${userEmail}. If you didn't request this, you can ignore this email.</p>
+                        <p>This email was sent to ${email}. If you didn't request this, you can ignore this email.</p>
                     </div>
                 </div>
             </body>
             </html>
             `,
-        });
+        };
 
-        if (error) {
-            console.error('❌ Resend API Error:', error);
-            return null;
-        }
+        const info = await transporter.sendMail(mailOptions);
+        console.log('✅ Success: Email dispatched through Vercel route to', email);
 
-        console.log('✅ Authentic waitlist email sent via Resend to:', userEmail, 'Message ID:', data.id);
-        return data;
+        return NextResponse.json({ success: true, messageId: info.messageId });
     } catch (error) {
-        console.error('❌ Error sending waitlist email via Resend to:', userEmail, error);
-        return null;
+        console.error('❌ Failed to route email through Vercel.', error);
+        return NextResponse.json({ error: 'Failed to send confirmation email. Network or Auth Error.' }, { status: 500 });
     }
-};
-
-module.exports = {
-    sendWaitlistConfirmationEmail,
-};
+}

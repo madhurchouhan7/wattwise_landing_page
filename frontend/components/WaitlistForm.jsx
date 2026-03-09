@@ -40,6 +40,14 @@ export default function WaitlistForm({ variant = 'hero' }) {
                     setMessage(data.message);
                     setEmail('');
                     posthog?.capture('waitlist_joined_success', { email, location: variant });
+
+                    // Ask Vercel to asynchronously send the welcome email!
+                    fetch('/api/email', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ email }),
+                    }).catch(err => console.error("Email dispatch failed silently: ", err));
+
                 }
                 else if (res.status === 409) {
                     setStatus('duplicate');

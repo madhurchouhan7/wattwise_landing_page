@@ -1,5 +1,4 @@
 const Waitlist = require('../models/Waitlist');
-const { sendWaitlistConfirmationEmail } = require('../services/emailService');
 
 // POST /api/waitlist
 const joinWaitlist = async (req, res) => {
@@ -18,9 +17,6 @@ const joinWaitlist = async (req, res) => {
         const userAgent = req.headers['user-agent'] || null;
 
         const entry = await Waitlist.create({ email, ipAddress, userAgent });
-
-        // Send confirmation email asynchronously (does not block response)
-        sendWaitlistConfirmationEmail(email);
 
         return res.status(201).json({
             success: true,
