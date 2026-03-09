@@ -1,21 +1,20 @@
 @import "tailwindcss";
 
 @theme {
-  --color-brand-50: #eff6ff;
-  --color-brand-100: #dbeafe;
-  --color-brand-200: #bfdbfe;
-  --color-brand-300: #93c5fd;
-  --color-brand-400: #60a5fa;
-  --color-brand-500: #3b82f6;
-  --color-brand-600: #2563eb;
-  --color-brand-700: #1d4ed8;
-  --color-brand-800: #1e40af;
-  --color-brand-900: #1e3a8a;
-  --color-energy: #06b6d4;
-  --color-energy-glow: rgba(6, 182, 212, 0.35);
-  --font-sans: var(--font-inter), system-ui, sans-serif;
+  --color-primary: #2563eb;
+  --color-primary-dark: #1d4ed8;
+  --color-surface: #f0f2f5;
+  --color-dark: #0f172a;
+  --color-text: #0f172a;
+  --color-text-secondary: #475569;
+  --color-text-muted: #94a3b8;
+  --color-border: #e2e8f0;
+  --color-green: #22c55e;
+  --color-red: #ef4444;
+  --font-sans: var(--font-inter), system-ui, -apple-system, sans-serif;
 }
 
+/* ── Reset ───────────────────────────────────────────── */
 * {
   box-sizing: border-box;
 }
@@ -26,108 +25,59 @@ html {
 
 body {
   font-family: var(--font-sans);
-  background: #ffffff;
-  color: #0f172a;
+  color: var(--color-text);
   overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  /* PrettyProgress-style radial vignette bg */
+  background:
+    radial-gradient(ellipse 80% 60% at 50% 0%, rgba(219, 234, 254, 0.45) 0%, transparent 60%),
+    radial-gradient(ellipse 70% 50% at 50% 100%, rgba(219, 234, 254, 0.3) 0%, transparent 50%),
+    #f8fafc;
+  background-attachment: fixed;
 }
 
-/* ── Gradient text utility ──────────────────────────────── */
-.gradient-text {
-  background: linear-gradient(135deg, #2563eb 0%, #06b6d4 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-/* ── Glow button ────────────────────────────────────────── */
-.btn-glow {
-  position: relative;
-  background: linear-gradient(135deg, #2563eb, #06b6d4);
-  color: #fff;
-  border: none;
-  border-radius: 12px;
-  font-weight: 600;
-  letter-spacing: 0.01em;
-  cursor: pointer;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-  overflow: hidden;
-}
-
-.btn-glow::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(135deg, #1d4ed8, #0891b2);
-  opacity: 0;
-  transition: opacity 0.2s ease;
-  border-radius: inherit;
-}
-
-.btn-glow:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 0 32px rgba(37, 99, 235, 0.45), 0 8px 24px rgba(0, 0, 0, 0.15);
-}
-
-.btn-glow:hover::before {
-  opacity: 1;
-}
-
-.btn-glow span {
-  position: relative;
-  z-index: 1;
-}
-
-.btn-glow:active {
-  transform: translateY(0);
-}
-
-/* ── Glass card ─────────────────────────────────────────── */
-.glass-card {
-  background: rgba(255, 255, 255, 0.7);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(37, 99, 235, 0.12);
-  border-radius: 20px;
-}
-
-/* ── Feature card hover ─────────────────────────────────── */
-.feature-card {
-  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
-}
-
-.feature-card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 20px 60px rgba(37, 99, 235, 0.12);
-  border-color: rgba(37, 99, 235, 0.25);
-}
-
-/* ── Scrollbar ──────────────────────────────────────────── */
+/* ── Scrollbar ───────────────────────────────────────── */
 ::-webkit-scrollbar {
-  width: 6px;
+  width: 8px;
 }
+
 ::-webkit-scrollbar-track {
-  background: #f1f5f9;
+  background: transparent;
 }
+
 ::-webkit-scrollbar-thumb {
   background: #cbd5e1;
-  border-radius: 3px;
+  border-radius: 4px;
 }
 
-/* ── Phone mockup animations ────────────────────────────── */
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* ── Phone float ─────────────────────────────────────── */
 @keyframes float {
-  0%, 100% { transform: translateY(0px); }
-  50%       { transform: translateY(-16px); }
+
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-12px);
+  }
 }
 
 .phone-float {
   animation: float 5s ease-in-out infinite;
 }
 
-@keyframes pulse-glow {
-  0%, 100% { box-shadow: 0 0 40px rgba(37, 99, 235, 0.3), 0 0 80px rgba(6, 182, 212, 0.15); }
-  50%       { box-shadow: 0 0 60px rgba(37, 99, 235, 0.5), 0 0 120px rgba(6, 182, 212, 0.25); }
+/* ── No-scrollbar ────────────────────────────────────── */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
 }
 
-.glow-ring {
-  animation: pulse-glow 3s ease-in-out infinite;
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
