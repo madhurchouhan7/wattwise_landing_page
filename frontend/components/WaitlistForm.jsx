@@ -2,11 +2,13 @@
 
 import { useState, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { usePostHog } from 'posthog-js/react';
 
 export default function WaitlistForm({ variant = 'hero' }) {
     const [email, setEmail] = useState('');
     const [status, setStatus] = useState('idle');
     const [message, setMessage] = useState('');
+    const posthog = usePostHog();
 
     const handleSubmit = useCallback(
         async (e) => {
@@ -21,9 +23,22 @@ export default function WaitlistForm({ variant = 'hero' }) {
                     body: JSON.stringify({ email, recaptchaToken: 'dev-token' }),
                 });
                 const data = await res.json();
-                if (res.status === 201) { setStatus('success'); setMessage(data.message); setEmail(''); }
-                else if (res.status === 409) { setStatus('duplicate'); setMessage(data.error); }
-                else { setStatus('error'); setMessage(data.error || 'Something went wrong.'); }
+                if (res.status === 201) {
+                    setStatus('success');
+                    setMessage(data.message);
+                    setEmail('');
+                    posthog?.capture('waitlist_joined_success', { email, location: variant });
+                }
+                else if (res.status === 409) {
+                    setStatus('duplicate');
+                    setMessage(data.error);
+                    posthog?.capture('waitlist_joined_duplicate', { location: variant });
+                }
+                else {
+                    setStatus('error');
+                    setMessage(data.error || 'Something went wrong.');
+                    posthog?.capture('waitlist_joined_error', { error: data.error, location: variant });
+                }
             } catch {
                 setStatus('error');
                 setMessage('Network error. Please check your connection.');

@@ -44,18 +44,18 @@ const features = [
         ),
     },
     {
-        title: 'Smart Alerts.',
-        desc: 'Get notified when usage spikes. Budget warnings reach you before the damage is done.',
+        title: 'Active Plan Management.',
+        desc: 'Stay on track with your goals using one-tap check-ins and automated daily action toggles.',
         gradient: 'from-rose-50 to-orange-50',
         border: 'border-rose-100',
         span: '',
         hasPhone: true,
-        screenshot: null, // '/screenshots/alerts.png'
+        screenshot: null,
         phoneScreen: <AlertsScreen />,
     },
     {
-        title: 'Bill Analysis.',
-        desc: 'Upload any electricity bill and get an instant breakdown of every single charge.',
+        title: 'Bill History.',
+        desc: 'Easily track your utility statements across months and monitor estimated remaining cycle costs.',
         gradient: 'from-emerald-50 to-teal-50',
         border: 'border-emerald-100',
         span: '',
@@ -64,13 +64,13 @@ const features = [
         phoneScreen: <BillAnalysisScreen />,
     },
     {
-        title: 'Appliance Breakdown.',
-        desc: 'Find out which device drains your wallet the most — with per-appliance cost tracking.',
+        title: 'Custom Plan Generation.',
+        desc: 'Provide your usage context and let AI generate a targeted step-by-step strategy for saving energy.',
         gradient: 'from-violet-50 to-purple-50',
         border: 'border-violet-100',
         span: '',
         hasPhone: true,
-        screenshot: null, // '/screenshots/appliances.png'
+        screenshot: null,
         phoneScreen: <ApplianceScreen />,
     },
     {

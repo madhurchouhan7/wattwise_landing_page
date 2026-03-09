@@ -23,38 +23,38 @@ const fadeUp = {
 const screens = [
     {
         id: 'dashboard', label: 'Dashboard', icon: '📊',
-        screenshot: null, // Replace with: '/screenshots/dashboard.png'
+        screenshot: null,
         fallback: <DashboardScreen />,
         headline: 'Your energy at a glance.',
-        description: 'See your monthly usage, estimated bill, peak hours, and AI insights — all on one clean dashboard designed for quick decisions.',
+        description: 'See your monthly usage, estimated bill, peak hours, and active plan progress — all on one clean dashboard.',
     },
     {
-        id: 'bills', label: 'Bill Analysis', icon: '📄',
-        screenshot: null, // Replace with: '/screenshots/bill-analysis.png'
+        id: 'bills', label: 'Bill History', icon: '📄',
+        screenshot: null,
         fallback: <BillAnalysisScreen />,
         headline: 'Bills decoded instantly.',
-        description: 'Upload any electricity bill and get a full breakdown in seconds. See exactly where every rupee goes with clear, visual data.',
+        description: 'Get an instant breakdown of your utility overview. Track usage, remaining days, and track your payment history effortlessly.',
     },
     {
-        id: 'alerts', label: 'Smart Alerts', icon: '🔔',
-        screenshot: null, // Replace with: '/screenshots/alerts.png'
+        id: 'plan_management', label: 'Active Plan', icon: '⚡',
+        screenshot: null,
         fallback: <AlertsScreen />,
-        headline: 'Never miss a spike.',
-        description: 'Real-time alerts for usage spikes, budget warnings, peak hours, and appliance issues. Stay in control without checking the app.',
+        headline: 'Manage your savings plan.',
+        description: 'Stay on track with 85% adherence tracking, automated daily actions, and estimated cycle savings updated in real-time.',
     },
     {
-        id: 'appliances', label: 'Appliances', icon: '🔌',
-        screenshot: null, // Replace with: '/screenshots/appliances.png'
+        id: 'plan_context', label: 'Plan Setup', icon: '🎯',
+        screenshot: null,
         fallback: <ApplianceScreen />,
-        headline: 'Know your energy hogs.',
-        description: 'Find out which appliances drain your wallet. Interactive donut charts and per-device cost breakdowns make it crystal clear.',
+        headline: 'AI generated strategies.',
+        description: 'Review your personalized efficiency plan with clear action highlights and targeted monthly savings goals.',
     },
     {
-        id: 'insights', label: 'AI Insights', icon: '🧠',
-        screenshot: null, // Replace with: '/screenshots/insights.png'
+        id: 'insights', label: 'Insights', icon: '🧠',
+        screenshot: null,
         fallback: <InsightsScreen />,
         headline: 'AI that saves you money.',
-        description: 'Our AI analyzes your patterns and gives personalized recommendations with estimated savings. Sorted by effort level.',
+        description: 'View your overall efficiency score, track appliance breakdown, and observe 30-day intensity mapping natively.',
     },
 ];
 

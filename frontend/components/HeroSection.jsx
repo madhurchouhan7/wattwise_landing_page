@@ -47,24 +47,24 @@ function HeroPhone() {
 /* Floating widget cards around the phone — PrettyProgress style */
 function FloatingCards() {
     return (
-        <div className="absolute inset-0 pointer-events-none overflow-hidden">
+        <div className="absolute inset-0 pointer-events-none">
             {/* Card 1 */}
             <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.8, duration: 0.8 }}
-                className="absolute top-[35%] left-[2%] hidden lg:block z-20">
+                className="absolute top-[25%] left-0 xl:-left-4 hidden lg:block z-20">
                 <motion.div animate={{ y: [0, -10, 0] }} transition={{ repeat: Infinity, duration: 4, ease: "easeInOut", delay: 0 }}
                     className="w-44 bg-white/90 backdrop-blur-sm rounded-2xl p-3 shadow-lg shadow-slate-200/50 border border-slate-100">
                     <div className="flex items-center gap-2 mb-2">
                         <div className="w-6 h-6 rounded-full bg-emerald-100 flex items-center justify-center"><span className="text-emerald-600 text-[10px]">↓</span></div>
                         <span className="text-[11px] font-semibold text-slate-700">Bill Reduced</span>
                     </div>
-                    <p className="text-2xl font-extrabold text-emerald-600">-18%</p>
+                    <p className="text-2xl font-extrabold text-emerald-600">-5%</p>
                     <p className="text-[10px] text-slate-400 mt-0.5">vs last month</p>
                 </motion.div>
             </motion.div>
 
             {/* Card 2 */}
             <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 1.1, duration: 0.8 }}
-                className="absolute top-[62%] left-[5%] hidden lg:block z-20">
+                className="absolute top-[65%] left-4 xl:left-0 hidden lg:block z-20">
                 <motion.div animate={{ y: [0, -8, 0] }} transition={{ repeat: Infinity, duration: 5, ease: "easeInOut", delay: 1 }}
                     className="w-40 bg-white/90 backdrop-blur-sm rounded-2xl p-3 shadow-lg shadow-slate-200/50 border border-slate-100">
                     <p className="text-[10px] text-slate-400 mb-1">Peak Usage</p>
@@ -79,27 +79,27 @@ function FloatingCards() {
 
             {/* Card 3 */}
             <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.9, duration: 0.8 }}
-                className="absolute top-[28%] right-[2%] hidden lg:block z-20">
+                className="absolute top-[18%] right-2 xl:-right-4 hidden lg:block z-20">
                 <motion.div animate={{ y: [0, -12, 0] }} transition={{ repeat: Infinity, duration: 4.5, ease: "easeInOut", delay: 0.5 }}
                     className="w-44 bg-white/90 backdrop-blur-sm rounded-2xl p-3 shadow-lg shadow-slate-200/50 border border-slate-100">
                     <div className="flex items-center gap-2 mb-2">
-                        <div className="w-6 h-6 rounded-full bg-blue-100 flex items-center justify-center"><span className="text-blue-600 text-[10px]">⚡</span></div>
+                        <div className="w-6 h-6 rounded-full bg-blue-100 flex items-center justify-center"><span className="text-blue-600 text-[10px]">💰</span></div>
                         <span className="text-[11px] font-semibold text-slate-700">Est. Bill</span>
                     </div>
-                    <p className="text-2xl font-extrabold text-slate-900">₹1,240</p>
-                    <div className="h-1 bg-slate-100 rounded-full mt-2"><div className="h-1 bg-blue-500 rounded-full w-3/5" /></div>
+                    <p className="text-2xl font-extrabold text-slate-900">$124.50</p>
+                    <div className="text-[9px] text-rose-500 font-bold tracking-wider mt-1.5">+4%</div>
                 </motion.div>
             </motion.div>
 
             {/* Card 4 */}
             <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 1.2, duration: 0.8 }}
-                className="absolute top-[58%] right-[4%] hidden lg:block z-20">
+                className="absolute top-[55%] right-0 xl:-right-8 hidden lg:block z-20">
                 <motion.div animate={{ y: [0, -8, 0] }} transition={{ repeat: Infinity, duration: 3.5, ease: "easeInOut", delay: 1.5 }}
-                    className="w-40 bg-gradient-to-br from-blue-600 to-indigo-600 rounded-2xl p-3 shadow-lg shadow-blue-500/20">
-                    <p className="text-[10px] text-white/60 mb-0.5">Smart Alert</p>
-                    <p className="text-[11px] font-semibold text-white leading-snug">AC running 3h above average today</p>
+                    className="w-40 bg-gradient-to-br from-orange-500 to-rose-500 rounded-2xl p-3 shadow-lg shadow-orange-500/20">
+                    <p className="text-[10px] text-white/60 mb-0.5">Heat Advisory</p>
+                    <p className="text-[11px] font-semibold text-white leading-snug">Expect higher usage due to 95°F heat.</p>
                     <div className="mt-2 flex items-center gap-1.5">
-                        <div className="w-4 h-4 rounded-full bg-white/20 flex items-center justify-center"><span className="text-white text-[8px]">!</span></div>
+                        <div className="w-4 h-4 rounded-full bg-white/20 flex items-center justify-center"><span className="text-white text-[8px]">☀️</span></div>
                         <span className="text-[9px] text-white/60">Just now</span>
                     </div>
                 </motion.div>
@@ -112,8 +112,6 @@ function FloatingCards() {
 export default function HeroSection() {
     return (
         <section id="waitlist" className="relative min-h-screen flex items-center pt-20 pb-20 overflow-hidden">
-            <FloatingCards />
-
             <div className="relative max-w-6xl mx-auto px-6 w-full z-10">
                 <div className="grid lg:grid-cols-2 gap-10 items-center">
                     {/* Left — text + form */}
@@ -159,6 +157,7 @@ export default function HeroSection() {
                         transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1], delay: 0.3 }}
                         className="flex justify-center relative">
                         <HeroPhone />
+                        <FloatingCards />
                     </motion.div>
                 </div>
             </div>
