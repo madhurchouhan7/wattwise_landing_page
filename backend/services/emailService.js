@@ -1,4 +1,8 @@
 const nodemailer = require('nodemailer');
+const dns = require('dns');
+
+// Force Node to prefer IPv4 over IPv6 during DNS resolution to prevent ENETUNREACH errors
+dns.setDefaultResultOrder('ipv4first');
 
 const transporter = nodemailer.createTransport({
     host: process.env.SMTP_HOST || 'smtp.gmail.com',
