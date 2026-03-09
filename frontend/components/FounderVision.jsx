@@ -35,8 +35,8 @@ export default function FounderVision() {
 
                     {/* Author */}
                     <div className="flex items-center justify-center gap-4 mb-10">
-                        <div className="w-14 h-14 rounded-2xl bg-blue-600 flex items-center justify-center flex-shrink-0 shadow-lg shadow-blue-500/20">
-                            <span className="text-white text-xl font-bold">M</span>
+                        <div className="w-32 h-32 rounded-[32px] flex-shrink-0 shadow-lg shadow-blue-500/20 relative overflow-hidden bg-blue-600">
+                            <img src="/images/founder.jpeg" alt="Madhur Chouhan" className="w-full h-full object-cover" />
                         </div>
                         <div className="text-left">
                             <p className="font-bold text-slate-900 text-lg">Madhur Chouhan</p>
@@ -45,9 +45,9 @@ export default function FounderVision() {
                     </div>
 
                     {/* Stats */}
-                    <div className="pt-8 border-t border-slate-200/60 grid grid-cols-3 gap-6">
+                    <div className="pt-8 border-t border-slate-200/60 grid grid-cols-1 sm:grid-cols-3 gap-8 sm:gap-6">
                         {[
-                            { value: '500+', label: 'People on waitlist' },
+                            { value: '100%', label: 'Free Early Access' },
                             { value: '18%', label: 'Avg savings found' },
                             { value: '2026', label: 'Beta launch year' },
                         ].map((s) => (

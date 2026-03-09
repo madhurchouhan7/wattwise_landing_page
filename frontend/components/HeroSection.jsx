@@ -125,7 +125,7 @@ export default function HeroSection() {
                         <motion.p variants={fadeUp} initial="hidden" animate="visible" custom={0.1}
                             className="text-lg sm:text-xl text-slate-500 leading-relaxed mb-8 max-w-lg">
                             Wattwise analyzes your electricity bills, tracks real-time energy usage,
-                            and delivers <em className="text-slate-700 font-medium not-italic">AI-powered insights</em> — so you always decide your watt wisely.
+                            and delivers <em className="text-slate-700 font-medium not-italic">AI-powered insights</em> — so you always decide your "watt wisely".
                         </motion.p>
 
                         <motion.div variants={fadeUp} initial="hidden" animate="visible" custom={0.2}>
@@ -137,17 +137,13 @@ export default function HeroSection() {
                         </motion.div>
 
                         <motion.div variants={fadeUp} initial="hidden" animate="visible" custom={0.35}
-                            className="mt-6 flex items-center gap-4">
-                            <div className="flex -space-x-2">
-                                {['bg-blue-500', 'bg-emerald-500', 'bg-amber-500', 'bg-rose-500'].map((c, i) => (
-                                    <div key={i} className={`w-8 h-8 rounded-full border-[2.5px] border-white ${c} flex items-center justify-center shadow-sm`}>
-                                        <span className="text-white text-[10px] font-bold">{String.fromCharCode(65 + i)}</span>
-                                    </div>
-                                ))}
+                            className="mt-6 flex items-center gap-3">
+                            <div className="flex items-center justify-center w-8 h-8 rounded-full bg-blue-50 border-[2.5px] border-white shadow-sm">
+                                <span className="text-blue-500 text-sm">✨</span>
                             </div>
                             <div>
-                                <p className="text-sm font-bold text-slate-800">500+ people already joined</p>
-                                <p className="text-xs text-slate-400">Spots are filling fast</p>
+                                <p className="text-sm font-bold text-slate-800">Exclusive Early Access</p>
+                                <p className="text-xs text-slate-500">Be among the first to join</p>
                             </div>
                         </motion.div>
                     </div>

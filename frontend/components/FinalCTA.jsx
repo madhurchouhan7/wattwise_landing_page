@@ -35,19 +35,14 @@ export default function FinalCTA() {
                         </h2>
 
                         <p className="text-base sm:text-lg text-slate-400 leading-relaxed max-w-xl mx-auto mb-8">
-                            Join <strong className="text-white">500+ smart users</strong> who are already signed up.
+                            Join <strong className="text-white">smart early users</strong> who are securing their spots.
                             Be first in line when we launch — <strong className="text-white">completely free.</strong>
                         </p>
 
                         {/* Scarcity */}
                         <div className="flex items-center justify-center gap-3 mb-8">
-                            <div className="flex -space-x-1.5">
-                                {['bg-blue-400/40', 'bg-emerald-400/40', 'bg-amber-400/40'].map((c, i) => (
-                                    <div key={i} className={`w-6 h-6 rounded-full border border-white/10 ${c}`} />
-                                ))}
-                            </div>
                             <p className="text-sm text-slate-400">
-                                <span className="text-rose-400 font-semibold">Only 127 spots left</span>
+                                <span className="text-amber-400 font-semibold">Early access spots are limited</span>
                             </p>
                         </div>
 
